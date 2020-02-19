@@ -62,10 +62,10 @@ int main(void){
                     out << "ACCOUNT: ";
 
                     // Print userID
-                    u128 uID = events[i].eventData.account.userID[2];
-                    uID = (uID << 32) | events[i].eventData.account.userID[3];
-                    uID = (uID << 32) | events[i].eventData.account.userID[0];
-                    uID = (uID << 32) | events[i].eventData.account.userID[1];
+                    u128 uID = events[i].eventData.account.uid[2];
+                    uID = (uID << 32) | events[i].eventData.account.uid[3];
+                    uID = (uID << 32) | events[i].eventData.account.uid[0];
+                    uID = (uID << 32) | events[i].eventData.account.uid[1];
                     out << uID << " ";
 
                     // Print type
@@ -87,8 +87,8 @@ int main(void){
                     out << "APPLET: ";
 
                     // Print title ID
-                    u64 tID = events[i].eventData.applet.titleID[0];
-                    tID = (tID << 32) | events[i].eventData.applet.titleID[1];
+                    u64 tID = events[i].eventData.applet.program_id[0];
+                    tID = (tID << 32) | events[i].eventData.applet.program_id[1];
                     out << std::hex << tID << std::dec << " ";
 
                     // Print type
@@ -126,7 +126,6 @@ int main(void){
 
             timestamp = events[i].timestampSteady;
             out << timestamp << std::endl;
-
 
             valid++;
         }
