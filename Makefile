@@ -30,7 +30,7 @@ INCLUDES	:=	include
 
 APP_TITLE   := 	PlayEventDumper
 APP_AUTHOR	:= 	tallbl0nde
-APP_VERSION	:=	0.0.1
+APP_VERSION	:=	1.0.1
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
