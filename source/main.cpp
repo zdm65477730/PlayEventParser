@@ -52,13 +52,10 @@ int main(void){
         offset += total_out;
 
         // Check if valid
-        for (size_t i = 0; i < total_out; i++) {
+        for (s32 i = 0; i < total_out; i++) {
             // Must be app/acc event
             switch (events[i].playEventType) {
                 case PdmPlayEventType_Account: {
-                    if (events[i].eventData.account.type == 2) {
-                        continue;
-                    }
                     out << "ACCOUNT: ";
 
                     // Print userID
@@ -76,15 +73,23 @@ int main(void){
                         case 1:
                             out << "Logout";
                             break;
+                        case 2:
+                            out << "Unknown";
+                            break;
                     }
                     break;
                 }
 
                 case PdmPlayEventType_Applet: {
-                    if (events[i].eventData.applet.logPolicy != PdmPlayLogPolicy_All) {
+                    bool hasUnk = (events[i].eventData.applet.logPolicy == PdmPlayLogPolicy_Unknown3);
+                    if (!hasUnk && events[i].eventData.applet.logPolicy != PdmPlayLogPolicy_All) {
                         continue;
                     }
-                    out << "APPLET: ";
+                    if (hasUnk) {
+                        out << "APPLET (unk): ";
+                    } else {
+                        out << "APPLET: ";
+                    }
 
                     // Print title ID
                     u64 tID = events[i].eventData.applet.program_id[0];
