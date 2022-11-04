@@ -138,7 +138,7 @@ int main(void){
 
     out.close();
 
-    std::cout << "Read " << valid << " entries - dumped to sdmc:/playlog.txt" << std::endl;
+    std::cout << "Read " << valid << " entries - dumped to playlog.txt under current homebrew application folder" << std::endl;
     std::cout << "Press any key to exit" << std::endl;
     consoleUpdate(NULL);
 
