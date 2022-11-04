@@ -37,7 +37,7 @@ int main(void){
     pdmqryInitialize();
 
     // File to write to
-    std::ofstream out("/playlog.txt");
+    std::ofstream out("/switch/PlayEventParser/playlog.txt");
     std::cout << "Beginning dump/parsing..." << std::endl;
     consoleUpdate(NULL);
 
@@ -144,12 +144,20 @@ int main(void){
 
     delete[] events;
 
+    // Initialize pad
+    PadState pad;
+    padInitializeAny(&pad);
+    // Initialize touch screen
+    hidInitializeTouchScreen();
+    // Drop all inputs from the previous overlay
+    padUpdate(&pad);
+
     while (appletMainLoop()){
         // Get key presses
-        hidScanInput();
-        u64 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
-
-        if (kDown & KEY_PLUS){
+        // Scan for input changes
+        padUpdate(&pad);
+        u64 kDown = padGetButtonsDown(&pad);
+        if (kDown & HidNpadButton_Plus){
             break;
         }
     }
