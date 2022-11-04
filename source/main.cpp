@@ -37,7 +37,7 @@ int main(void){
     pdmqryInitialize();
 
     // File to write to
-    std::ofstream out("/switch/PlayEventParser/playlog.txt");
+    std::ofstream out("playlog.txt");
     std::cout << "Beginning dump/parsing..." << std::endl;
     consoleUpdate(NULL);
 
@@ -139,25 +139,25 @@ int main(void){
     out.close();
 
     std::cout << "Read " << valid << " entries - dumped to sdmc:/playlog.txt" << std::endl;
-    std::cout << "Press + to exit" << std::endl;
+    std::cout << "Press any key to exit" << std::endl;
     consoleUpdate(NULL);
 
     delete[] events;
 
+    padConfigureInput(8, HidNpadStyleSet_NpadStandard);
     // Initialize pad
     PadState pad;
     padInitializeAny(&pad);
+
     // Initialize touch screen
     hidInitializeTouchScreen();
-    // Drop all inputs from the previous overlay
-    padUpdate(&pad);
 
     while (appletMainLoop()){
         // Get key presses
         // Scan for input changes
         padUpdate(&pad);
         u64 kDown = padGetButtonsDown(&pad);
-        if (kDown & HidNpadButton_Plus){
+        if (kDown){
             break;
         }
     }
